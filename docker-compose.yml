@@ -1,11 +1,11 @@
 # Saarthi: the app (API + built client) and a private Ollama for the tutor.
-# Start:  docker compose up -d --build        Open:  http://localhost:${APP_PORT:-8080}
+# Start:  docker compose up -d --build        Open:  http://localhost:${APP_PORT:-8090}
 services:
   app:
     build: .
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-8080}:4000"
+      - "${APP_PORT:-8090}:4000"
     env_file: .env
     environment:
       OLLAMA_HOST: http://ollama:11434
