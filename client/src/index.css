@@ -1,0 +1,67 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/noto-sans-devanagari/400.css';
+@import '@fontsource/noto-sans-devanagari/500.css';
+@import '@fontsource/noto-sans-devanagari/600.css';
+@import '@fontsource/noto-sans-telugu/400.css';
+@import '@fontsource/noto-sans-telugu/500.css';
+@import '@fontsource/noto-sans-telugu/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: 245 248 250;
+  --surface: 255 255 255;
+  --neutral: 241 245 247;
+  --line: 220 229 234;
+  --ink: 23 45 59;
+  --slate: 83 101 116;
+  --faint: 131 145 156;
+  --primary: 15 118 110;
+  --primary-hover: 17 94 89;
+  --primary-subtle: 226 243 240;
+  --primary-tint: 242 250 247;
+  --success: 21 128 61;
+  --success-surface: 232 245 233;
+  --warning: 180 83 9;
+  --warning-surface: 255 243 224;
+  --critical: 185 28 28;
+  --critical-surface: 253 236 236;
+  --info: 37 99 235;
+  --ext-surface: 255 247 237;
+  --ext-line: 245 158 11;
+  --track: 230 236 239;
+  --skeleton: 232 238 241;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-canvas font-sans text-[14px] leading-[1.55] text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1, h2, h3 { @apply font-semibold text-ink; }
+  h1 { @apply text-[26px] leading-tight tracking-[-0.02em] sm:text-[28px]; }
+  h2 { @apply text-[20px] leading-snug tracking-[-0.01em]; }
+  h3 { @apply text-[15px] leading-snug; }
+  :focus-visible { @apply outline-none ring-2 ring-primary/40 ring-offset-1 ring-offset-surface; }
+  ::selection { background: rgb(var(--primary-subtle)); }
+  * { scrollbar-width: thin; scrollbar-color: rgb(var(--line)) transparent; }
+}
+
+@layer components {
+  .meta { @apply text-[12.5px] text-slate; }
+  .label { @apply text-[11.5px] font-medium text-slate; }
+  .code { @apply font-mono text-[12px] font-medium text-slate; }
+  .card { @apply rounded-card border border-line bg-surface; }
+  .num { @apply tabular-nums; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

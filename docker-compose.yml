@@ -1,0 +1,41 @@
+# Saarthi: the app (API + built client) and a private Ollama for the tutor.
+# Start:  docker compose up -d --build        Open:  http://localhost:${APP_PORT:-8080}
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:4000"
+    env_file: .env
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    volumes:
+      - saarthi-data:/data        # learner data and uploaded files; survives rebuilds
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    volumes:
+      - ollama-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  ollama-pull:                      # one-off: downloads the tutor models into the volume
+    image: ollama/ollama:latest
+    restart: "no"
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["sh", "-c", "ollama pull llama3.2 && ollama pull nomic-embed-text"]
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+volumes:
+  saarthi-data:
+  ollama-models:

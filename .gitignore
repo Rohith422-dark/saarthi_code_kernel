@@ -1,0 +1,7 @@
+.env
+backups/
+server/data/
+node_modules/
+dist/
+.claude/
+*.log
